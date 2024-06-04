@@ -1,0 +1,61 @@
+important --
+if you want to show uploaded image in cart then go to -cart-drawer,
+find item.proprrties
+change <a></a> to image tag
+https://prnt.sc/PqOspyVyY4Z6
+
+
+
+<!-- it should be placed above the submitButton of form in buy-buttons.liquid -->
+<!--/////////////////////////////////// custom line item//////////////////////////// -->
+<p class="line-item-property__field">
+    <label for="your-name">Your name</label>
+    <input id="your-name" type="text" name="properties[Your name]">
+  </p>
+  <p class="line-item-property__field">
+    <label for="imageUpload">Upload Image</label>
+    <input id="imageUpload" type="file" name="properties[Uploaded Image]" accept="image/*">
+  </p> 
+
+
+
+
+  <script>
+    window.onload = function() {
+      // Find the container
+      var container = document.querySelector('.product__media.media.media--transparent');
+  
+      // Create the new div for the image preview
+      var previewContainer = document.createElement('div');
+      previewContainer.id = 'imagePreviewContainer';
+      previewContainer.style.display = 'none';
+  
+      // Create the img element for the preview
+      var previewImage = document.createElement('img');
+      previewImage.id = 'imagePreview';
+      previewImage.src = '#'; // Initial src, can be empty or a placeholder
+      previewImage.alt = 'Image preview';
+  
+      // Append the img to the new div
+      previewContainer.appendChild(previewImage);
+  
+      // Append the new div to the container
+      if (container) {
+          container.appendChild(previewContainer);
+      }
+  };
+    document.getElementById('imageUpload').addEventListener('change', function(event){
+      if (event.target.files && event.target.files[0]) {
+          var reader = new FileReader();
+  
+          reader.onload = function(e) {
+              var preview = document.getElementById('imagePreview');
+              preview.src = e.target.result;
+              preview.style.display = 'block';
+              document.getElementById('imagePreviewContainer').style.display = 'block';
+          };
+  
+          reader.readAsDataURL(event.target.files[0]);
+      }
+  });
+  </script>
